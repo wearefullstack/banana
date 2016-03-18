@@ -31,9 +31,8 @@ function (Settings) {
      * your banana web application.
      * @type {String}
      */
-    solr: "http://hdp24.fullstack.co.za:8983/solr/",
-    solr_core: "svoc_authors",
-    timefield: 'event_timestamp',
+    solr: "/solr/",
+    solr_core: "logstash_logs",
 
     /**
      * The default Solr index to use for storing objects internal to Banana, such as 
@@ -74,7 +73,6 @@ function (Settings) {
      * @type {Array}
      */
     panel_names: [
-      'bar',
       'histogram',
       'map',
       'table',
@@ -93,9 +91,7 @@ function (Settings) {
       'fullTextSearch',
       'facet',
       'tagcloud',
-      'multiseries',
-      'sunburst',
-      'docviewer'
+      'multiseries'
     ]
   });
 });
