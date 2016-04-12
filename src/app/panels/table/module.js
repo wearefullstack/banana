@@ -31,7 +31,12 @@ function (angular, app, _, kbn, moment) {
 
   var module = angular.module('kibana.panels.table', []);
   app.useModule(module);
+<<<<<<< HEAD
   module.controller('table', function($rootScope, $scope, fields, querySrv, dashboard, filterSrv, solrSrv) {
+=======
+
+  module.controller('table', function($rootScope, $scope, $modal, $q, $compile, fields, querySrv, dashboard, filterSrv) {
+>>>>>>> origin/master
     $scope.panelMeta = {
       modals : [
         {
@@ -113,6 +118,45 @@ function (angular, app, _, kbn, moment) {
       $scope.get_data();
     };
 
+<<<<<<< HEAD
+=======
+    // Create a percent function for the view
+    $scope.percent = kbn.to_percent;
+
+    $scope.termsModal = function(field,chart) {
+      $scope.modalField = field;
+      showModal(
+        '{"height":"300px","chart":"'+chart+'","field":"'+field+'"}','terms');
+    };
+
+    $scope.statsModal = function(field) {
+      $scope.modalField = field;
+      showModal(
+        '{"field":"'+field+'"}','statistics');
+    };
+
+    var showModal = function(panel,type) {
+
+      $scope.facetPanel = panel;
+      $scope.facetType = type;
+
+      // create a new modal. Can't reuse one modal unforunately as the directive will not
+      // re-render on show.
+      var panelModal = $modal({
+        template: './app/panels/table/modal.html',
+        persist: true,
+        show: false,
+        scope: $scope,
+        keyboard: false
+      });
+
+      // and show it
+      $q.when(panelModal).then(function(modalEl) {
+        modalEl.modal('show');
+      });
+    };
+
+>>>>>>> origin/master
     $scope.toggle_micropanel = function(field,groups) {
       var docs = _.map($scope.data,function(_d){return _d.kibana._source;});
       var topFieldValues = {};
@@ -132,7 +176,12 @@ function (angular, app, _, kbn, moment) {
         values : topFieldValues.counts,
         hasArrays : topFieldValues.hasArrays,
         related : kbn.get_related_fields(docs,field),
+<<<<<<< HEAD
         count: totalcount
+=======
+        limit: 10,
+        count: _.countBy(docs,function(doc){return _.contains(_.keys(doc),field);})['true']
+>>>>>>> origin/master
       };
     };
 
@@ -200,17 +249,19 @@ function (angular, app, _, kbn, moment) {
       } else {
         query = angular.toJson(value);
       }
+<<<<<<< HEAD
       // TODO: Need to take a look here, not sure if need change.
       filterSrv.set({type:'field',field:field,query:query,mandate:(negate ? 'mustNot':'must')});
 
+=======
+>>>>>>> origin/master
       $scope.panel.offset = 0;
-      dashboard.refresh();
+      filterSrv.set({type:'field',field:field,query:query,mandate:(negate ? 'mustNot':'must')});
     };
 
     $scope.fieldExists = function(field,mandate) {
       // TODO: Need to take a look here.
       filterSrv.set({type:'exists',field:field,mandate:mandate});
-      dashboard.refresh();
     };
 
     $scope.get_data = function(segment,query_id) {

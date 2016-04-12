@@ -11,6 +11,9 @@ function (angular, _) {
     $scope.loader = dashboard.current.loader;
 
     $scope.init = function() {
+      $scope.advancedLoad = false;
+      $scope.advancedSave = false;
+
       $scope.gist_pattern = /(^\d{5,}$)|(^[a-z0-9]{10,}$)|(gist.github.com(\/*.*)\/[a-z0-9]{5,}\/*$)/;
       $scope.gist = $scope.gist || {};
       $scope.elasticsearch = $scope.elasticsearch || {};
@@ -30,12 +33,20 @@ function (angular, _) {
     };
     
     $scope.showDropdown = function(type) {
+<<<<<<< HEAD
       // var _l = $scope.loader;
       var _l = dashboard.current.loader || $scope.loader;
 
       if(type === 'new') {
         return (_l.load_elasticsearch || _l.load_gist || _l.load_local);
       }
+=======
+      if(_.isUndefined(dashboard.current.loader)) {
+        return true;
+      }
+
+      var _l = dashboard.current.loader;
+>>>>>>> origin/master
       if(type === 'load') {
         return (_l.load_elasticsearch || _l.load_gist || _l.load_local);
       }

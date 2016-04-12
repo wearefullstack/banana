@@ -295,7 +295,6 @@ function (angular, app, _, $, kbn) {
       } else {
         return;
       }
-      dashboard.refresh();
     };
 
     $scope.set_refresh = function (state) {

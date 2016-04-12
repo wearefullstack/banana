@@ -36,18 +36,22 @@
     <div class="navbar navbar-static-top">
       <div class="navbar-inner">
         <div class="container-fluid">
+<<<<<<< HEAD
+          <span class="brand">
+            <!-- <img src="img/silklogo.png" data-placement="bottom"> -->
+            {{dashboard.current.title}}
+          </span>
+=======
           <span class="brand">{{dashboard.current.title}}</span>
 
+>>>>>>> origin/master
           <ul class="nav pull-right" ng-controller='dashLoader' ng-init="init()" ng-include="'app/partials/dashLoader.html'">
           </ul>
         </div>
       </div>
     </div>
-    <div class="container-fluid main">
-      <div class="row-fluid">
-        <div ng-view></div>
-      </div>
-    </div>
-  </body>
 
+    <div ng-view></div>
+
+  </body>
 </html>

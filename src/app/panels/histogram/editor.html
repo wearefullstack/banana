@@ -1,9 +1,17 @@
   <div class="row-fluid">
     <div class="span2">
       <label class="small">Mode</label>
+<<<<<<< HEAD
       <!-- Banana: does not support 'min','mean','max', and 'total' modes yet -->
       <!-- <select ng-change="set_refresh(true)" class="input-small" ng-model="panel.mode" ng-options="f for f in ['count','min','mean','max','total','value']"></select> -->
       <select ng-change="set_refresh(true)" class="input-small" ng-model="panel.mode" ng-options="f for f in ['count','values']"></select>
+=======
+      <select ng-change="set_refresh(true)" class="input-small" ng-model="panel.mode" ng-options="f for f in ['count','min','mean','max','total','change']"></select>
+    </div>
+    <div class="span2">
+      <label class="small">Time Field</label>
+        <input ng-change="set_refresh(true)" placeholder="Start typing" bs-typeahead="fields.list" type="text" class="input-small" ng-model="panel.time_field">
+>>>>>>> origin/master
     </div>
     <div class="span2" ng-show="panel.mode != 'count'">
       <label class="small">Value Field</label>

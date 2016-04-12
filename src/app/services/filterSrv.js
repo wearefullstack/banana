@@ -1,15 +1,20 @@
 define([
   'angular',
   'underscore',
-  'config'
-], function (angular, _, config) {
+  'config',
+  'kbn'
+], function (angular, _, config, kbn) {
   'use strict';
 
   var DEBUG = false; // DEBUG mode
 
   var module = angular.module('kibana.services');
 
+<<<<<<< HEAD
   module.service('filterSrv', function(dashboard, ejsResource, sjsResource) {
+=======
+  module.service('filterSrv', function(dashboard, ejsResource, $rootScope, $timeout) {
+>>>>>>> origin/master
     // Create an object to hold our service state on the dashboard
     dashboard.current.services.filter = dashboard.current.services.filter || {};
 
@@ -40,18 +45,27 @@ define([
       self.ids = dashboard.current.services.filter.ids;
       _f = dashboard.current.services.filter;
 
+      // Date filters hold strings now, not dates
+      /*
       _.each(self.getByType('time',true),function(time) {
         self.list[time.id].from = time.from;
         self.list[time.id].to = time.to;
         self.list[time.id].fromDateObj = new Date(time.fromDateObj);
         self.list[time.id].toDateObj = new Date(time.toDateObj);
       });
+      */
 
     };
 
     // This is used both for adding filters and modifying them.
+<<<<<<< HEAD
     // If an id is passed, the filter at that id is updated.
     this.set = function(filter,id) {
+=======
+    // If an id is passed, the filter at that id is updated
+    this.set = function(filter,id,noRefresh) {
+      var _r;
+>>>>>>> origin/master
       _.defaults(filter,{mandate:'must'});
       filter.active = true;
 
@@ -65,13 +79,13 @@ define([
       if(!_.isUndefined(id)) {
         if(!_.isUndefined(self.list[id])) {
           _.extend(self.list[id],filter);
-          return id;
+          _r = id;
         } else {
-          return false;
+          _r = false;
         }
       } else {
         if(_.isUndefined(filter.type)) {
-          return false;
+          _r = false;
         } else {
           var _id = nextId();
           var _filter = {
@@ -81,9 +95,56 @@ define([
           _.defaults(filter,_filter);
           self.list[_id] = filter;
           self.ids.push(_id);
-          return _id;
+          _r = _id;
         }
       }
+      if(!$rootScope.$$phase) {
+        $rootScope.$apply();
+      }
+      if(noRefresh !== true) {
+        $timeout(function(){
+          dashboard.refresh();
+        },0);
+      }
+      $rootScope.$broadcast('filter');
+      return _r;
+    };
+
+    this.remove = function(id,noRefresh) {
+      var _r;
+      if(!_.isUndefined(self.list[id])) {
+        delete self.list[id];
+        // This must happen on the full path also since _.without returns a copy
+        self.ids = dashboard.current.services.filter.ids = _.without(self.ids,id);
+        _f.idQueue.unshift(id);
+        _f.idQueue.sort(function(v,k){return v-k;});
+        _r = true;
+      } else {
+        _r = false;
+      }
+      if(!$rootScope.$$phase) {
+        $rootScope.$apply();
+      }
+      if(noRefresh !== true) {
+        $timeout(function(){
+          dashboard.refresh();
+        },0);
+      }
+      $rootScope.$broadcast('filter');
+      return _r;
+    };
+
+    this.removeByType = function(type,noRefresh) {
+      var ids = self.idsByType(type);
+      _.each(ids,function(id) {
+        self.remove(id,true);
+      });
+      if(noRefresh !== true) {
+        $timeout(function(){
+          dashboard.refresh();
+        },0);
+      }
+      return ids;
     };
 
     /**
@@ -143,9 +204,17 @@ define([
       switch(filter.type)
       {
       case 'time':
+<<<<<<< HEAD
         return sjs.RangeFilter(filter.field)
           .from(filter.from.valueOf())
           .to(filter.to.valueOf());
+=======
+        var _f = ejs.RangeFilter(filter.field).from(kbn.parseDate(filter.from).valueOf());
+        if(!_.isUndefined(filter.to)) {
+          _f = _f.to(filter.to.valueOf());
+        }
+        return _f;
+>>>>>>> origin/master
       case 'range':
         return sjs.RangeFilter(filter.field)
           .from(filter.from)
@@ -327,6 +396,7 @@ define([
       return _.pick(self.list,self.idsByType(type,inactive));
     };
 
+<<<<<<< HEAD
     // get the ids of filters using type and field
     this.idsByTypeAndField = function(type,field,inactive){
       var _require = inactive ? {type:type} : {type:type, field:field, active:true};
@@ -355,6 +425,8 @@ define([
       return ids;
     };
 
+=======
+>>>>>>> origin/master
     this.idsByType = function(type,inactive) {
       var _require = inactive ? {type:type} : {type:type,active:true};
       return _.pluck(_.where(self.list,_require),'id');
@@ -365,13 +437,13 @@ define([
       return _.pluck(self.getByType('time'),'field');
     };
 
-    // This special function looks for all time filters, and returns a time range according to the mode
-    // No idea when max would actually be used
-    this.timeRange = function(mode) {
-      var _t = _.where(self.list,{type:'time',active:true});
-      if(_t.length === 0) {
+    // Parse is used when you need to know about the raw filter
+    this.timeRange = function(parse) {
+      var _t = _.last(_.where(self.list,{type:'time',active:true}));
+      if(_.isUndefined(_t)) {
         return false;
       }
+<<<<<<< HEAD
       switch(mode) {
       case "min":
         // If time is not Date obj (e.g. String time for Relative time mode or Since time mode)
@@ -388,10 +460,23 @@ define([
         }
         break; // not neccessary, but added to pass jshint test
       case "max":
+=======
+      if(parse === false) {
         return {
-          from: new Date(_.min(_.pluck(_t,'from'))),
-          to: new Date(_.max(_.pluck(_t,'to')))
+          from: _t.from,
+          to: _t.to
         };
+      } else {
+        var
+          _from = _t.from,
+          _to = _t.to || new Date();
+
+>>>>>>> origin/master
+        return {
+          from : kbn.parseDate(_from),
+          to : kbn.parseDate(_to)
+        };
+<<<<<<< HEAD
       default:
         return false;
       }
@@ -419,6 +504,8 @@ define([
         return true;
       } else {
         return false;
+=======
+>>>>>>> origin/master
       }
     };
 

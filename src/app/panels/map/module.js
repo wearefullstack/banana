@@ -228,6 +228,7 @@ function (angular, app, _, $, worldmap) {
     };
 
     $scope.build_search = function(field,value) {
+<<<<<<< HEAD
       // Set querystring to both uppercase and lowercase state values with double-quote around the value
       // to prevent query error from state=OR (Oregon).
       // When using Country Name option, the country name is supposed to be in capitalized format. But we
@@ -241,6 +242,9 @@ function (angular, app, _, $, worldmap) {
       }
       
       dashboard.refresh();
+=======
+      filterSrv.set({type:'querystring',mandate:'must',query:field+":"+value});
+>>>>>>> origin/master
     };
 
   });

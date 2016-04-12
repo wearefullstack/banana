@@ -1,6 +1,6 @@
 /*
 
-  ## Timepicker
+  ## Timepicker2
 
   ### Parameters
   * mode :: The default mode of the panel. Options: 'relative', 'absolute' 'since' Default: 'relative'
@@ -26,7 +26,7 @@ function (angular, app, _, moment, kbn, $) {
   var module = angular.module('kibana.panels.timepicker', []);
   app.useModule(module);
 
-  module.controller('timepicker', function($scope, $rootScope, $timeout, timer, $http, dashboard, filterSrv) {
+  module.controller('timepicker', function($scope, $modal, $q, filterSrv) {
     $scope.panelMeta = {
       modals: [{
         description: "Inspect",
@@ -41,6 +41,7 @@ function (angular, app, _, moment, kbn, $) {
 
     // Set and populate defaults
     var _d = {
+<<<<<<< HEAD
       status: "Stable",
       mode: "relative",
       time_options: ['5m', '15m', '1h', '6h', '12h', '24h', '2d', '7d', '30d'],
@@ -53,10 +54,39 @@ function (angular, app, _, moment, kbn, $) {
         interval: 30,
         min: 3
       }
+=======
+      status        : "Stable",
+      time_options  : ['5m','15m','1h','6h','12h','24h','2d','7d','30d'],
+      refresh_intervals : ['5s','10s','30s','1m','5m','15m','30m','1h','2h','1d'],
+
+      timefield     : '@timestamp'
+>>>>>>> origin/master
     };
     _.defaults($scope.panel,_d);
 
+    var customTimeModal = $modal({
+      template: './app/panels/timepicker/custom.html',
+      persist: true,
+      show: false,
+      scope: $scope,
+      keyboard: false
+    });
+
+    $scope.filterSrv = filterSrv;
+
+    // ng-pattern regexs
+    $scope.patterns = {
+      date: /^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$/,
+      hour: /^([01]?[0-9]|2[0-3])$/,
+      minute: /^[0-5][0-9]$/,
+      second: /^[0-5][0-9]$/,
+      millisecond: /^[0-9]*$/
+    };
+
+    $scope.$on('refresh', function(){$scope.init();});
+
     $scope.init = function() {
+<<<<<<< HEAD
       // Private refresh interval that we can use for view display without causing
       // unnecessary refreshes during changes
       $scope.refresh_interval = $scope.panel.refresh.interval;
@@ -115,36 +145,61 @@ function (angular, app, _, moment, kbn, $) {
             update_panel();
           }
         }
+=======
+      var time = filterSrv.timeRange('last');
+      if(time) {
+        $scope.panel.now = filterSrv.timeRange(false).to === "now" ? true : false;
+        $scope.time = getScopeTimeObj(time.from,time.to);
+      }
+    };
+
+    $scope.customTime = function() {
+      // Assume the form is valid since we're setting it to something valid
+      $scope.input.$setValidity("dummy", true);
+      $scope.temptime = cloneTime($scope.time);
+
+      // Date picker needs the date to be at the start of the day
+      $scope.temptime.from.date.setHours(0,0,0,0);
+      $scope.temptime.to.date.setHours(0,0,0,0);
+
+      $q.when(customTimeModal).then(function(modalEl) {
+        modalEl.modal('show');
+>>>>>>> origin/master
       });
     };
 
-    $scope.set_interval = function (refresh_interval) {
-      $scope.panel.refresh.interval = refresh_interval;
-      if(_.isNumber($scope.panel.refresh.interval)) {
-        if($scope.panel.refresh.interval < $scope.panel.refresh.min) {
-          $scope.panel.refresh.interval = $scope.panel.refresh.min;
-          timer.cancel($scope.refresh_timer);
-          return;
+    // Constantly validate the input of the fields. This function does not change any date variables
+    // outside of its own scope
+    $scope.validate = function(time) {
+      // Assume the form is valid. There is a hidden dummy input for invalidating it programatically.
+      $scope.input.$setValidity("dummy", true);
+
+      var _from = datepickerToLocal(time.from.date),
+        _to = datepickerToLocal(time.to.date),
+        _t = time;
+
+      if($scope.input.$valid) {
+
+        _from.setHours(_t.from.hour,_t.from.minute,_t.from.second,_t.from.millisecond);
+        _to.setHours(_t.to.hour,_t.to.minute,_t.to.second,_t.to.millisecond);
+
+        // Check that the objects are valid and to is after from
+        if(isNaN(_from.getTime()) || isNaN(_to.getTime()) || _from.getTime() >= _to.getTime()) {
+          $scope.input.$setValidity("dummy", false);
+          return false;
         }
-        timer.cancel($scope.refresh_timer);
-        $scope.refresh();
       } else {
-        timer.cancel($scope.refresh_timer);
+        return false;
       }
+
+      return {from:_from,to:_to};
     };
 
-    $scope.refresh = function() {
-      if ($scope.panel.refresh.enable) {
-        timer.cancel($scope.refresh_timer);
-        $scope.refresh_timer = timer.register($timeout(function() {
-          $scope.refresh();
-          $scope.time_apply();
-        },$scope.panel.refresh.interval*1000));
-      } else {
-        timer.cancel($scope.refresh_timer);
-      }
+    $scope.setNow = function() {
+      $scope.time.to = getTimeObj(new Date());
     };
 
+<<<<<<< HEAD
     var update_panel = function() {
       // Update panel's string representation of the time object. Don't update if
       // we're in relative mode since we dont want to store the time object in the
@@ -157,37 +212,33 @@ function (angular, app, _, moment, kbn, $) {
         };
       } else {
         delete $scope.panel.time;
+=======
+    /*
+      time : {
+        from: Date
+        to: Date
+>>>>>>> origin/master
       }
-    };
+    */
+    $scope.setAbsoluteTimeFilter = function (time) {
 
-    $scope.set_mode = function(mode) {
-      $scope.panel.mode = mode;
-      $scope.panel.refresh.enable = mode === 'absolute' ?
-        false : $scope.panel.refresh.enable;
+      // Create filter object
+      var _filter = _.clone(time);
 
-      update_panel();
-    };
+      _filter.type = 'time';
+      _filter.field = $scope.panel.timefield;
 
-    $scope.to_now = function() {
-      $scope.timepicker.to = {
-        time : moment().format("HH:mm:ss"),
-        date : moment().format("MM/DD/YYYY")
-      };
-    };
+      if($scope.panel.now) {
+        _filter.to = "now";
+      }
 
-    $scope.set_timespan = function(timespan) {
-      $scope.panel.timespan = timespan;
-      $scope.timepicker.from = {
-        time : moment(kbn.time_ago(timespan)).format("HH:mm:ss"),
-        date : moment(kbn.time_ago(timespan)).format("MM/DD/YYYY")
-      };
-      $scope.time_apply();
-    };
+      // Clear all time filters, set a new one
+      filterSrv.removeByType('time',true);
 
-    $scope.close_edit = function() {
-      $scope.time_apply();
-    };
+      // Set the filter
+      $scope.panel.filter_id = filterSrv.set(_filter);
 
+<<<<<<< HEAD
     $scope.time_calc = function(){
       var from,to;
 
@@ -214,11 +265,15 @@ function (angular, app, _, moment, kbn, $) {
         to = $scope.panel.mode !== 'absolute' ? moment() :
           $scope.time.to;
       }
+=======
+      // Update our representation
+      $scope.time = getScopeTimeObj(time.from,time.to);
+>>>>>>> origin/master
 
-      if (from.valueOf() >= to.valueOf()) {
-        from = moment(to.valueOf() - 1000);
-      }
+      return $scope.panel.filter_id;
+    };
 
+<<<<<<< HEAD
       // Fix for SILK-4 and SILK-29 bugs
       // This $timeout function causes the timepicker skip-back-one-day bugs.
       // Because it will set the timepicker values to $scope.time.from and $scope.time.to, which
@@ -231,13 +286,20 @@ function (angular, app, _, moment, kbn, $) {
       // $timeout(function(){
       //   set_timepicker(from,to);
       // });
+=======
+    $scope.setRelativeFilter = function(timespan) {
+>>>>>>> origin/master
 
-      return {
-        from : from,
-        to   : to
+      $scope.panel.now = true;
+      // Create filter object
+      var _filter = {
+        type : 'time',
+        field : $scope.panel.timefield,
+        from : "now-"+timespan,
+        to: "now"
       };
-    };
 
+<<<<<<< HEAD
     $scope.time_apply = function() {
       // Update internal time object
       $scope.panel.error = "";
@@ -247,10 +309,27 @@ function (angular, app, _, moment, kbn, $) {
 
       $scope.time = $scope.time_calc();
       $scope.time.field = $scope.panel.timefield;
+=======
+      // Clear all time filters, set a new one
+      filterSrv.removeByType('time',true);
 
-      update_panel();
-      set_time_filter($scope.time);
+      // Set the filter
+      $scope.panel.filter_id = filterSrv.set(_filter);
 
+      // Update our representation
+      $scope.time = getScopeTimeObj(kbn.parseDate(_filter.from),new Date());
+
+      return $scope.panel.filter_id;
+    };
+>>>>>>> origin/master
+
+    var pad = function(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    };
+
+<<<<<<< HEAD
       dashboard.refresh();
     };
 
@@ -334,8 +413,42 @@ function (angular, app, _, moment, kbn, $) {
           time : to.format("HH:mm:ss"),
           date : to.format("MM/DD/YYYY")
         }
+=======
+    var cloneTime = function(time) {
+      var _n = {
+        from: _.clone(time.from),
+        to: _.clone(time.to)
       };
-    }
+      // Create new dates as _.clone is shallow.
+      _n.from.date = new Date(_n.from.date);
+      _n.to.date = new Date(_n.to.date);
+      return _n;
+    };
+
+    var getScopeTimeObj = function(from,to) {
+      return {
+        from: getTimeObj(from),
+        to: getTimeObj(to)
+      };
+    };
+
+    var getTimeObj = function(date) {
+      return {
+        date: new Date(date),
+        hour: pad(date.getHours(),2),
+        minute: pad(date.getMinutes(),2),
+        second: pad(date.getSeconds(),2),
+        millisecond: pad(date.getMilliseconds(),3)
+>>>>>>> origin/master
+      };
+    };
+
+    // Do not use the results of this function unless you plan to use setHour/Minutes/etc on the result
+    var datepickerToLocal = function(date) {
+      date = moment(date).clone().toDate();
+      return moment(new Date(date.getTime() + date.getTimezoneOffset() * 60000)).toDate();
+    };
+
 
   });
 });

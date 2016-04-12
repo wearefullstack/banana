@@ -40,6 +40,16 @@ function (angular, _, config) {
       "#E0F9D7","#FCEACA","#CFFAFF","#F9E2D2","#FCE2DE","#BADFF4","#F9D9F9","#DEDAF7"  //7
     ];
 
+<<<<<<< HEAD
+=======
+    // Define the query types and the version of elasticsearch they were first available in
+    this.queryTypes = [
+      {name:'lucene',require:">=0.17.0"},
+      {name:'regex',require:">=0.90.3"}
+    ];
+
+
+>>>>>>> origin/master
     // Save a reference to this
     var self = this;
 
@@ -103,7 +113,13 @@ function (angular, _, config) {
       switch(q.type)
       {
       case 'lucene':
+<<<<<<< HEAD
         return sjs.QueryStringQuery(q.query || '*:*');
+=======
+        return ejs.QueryStringQuery(q.query || '*');
+      case 'regex':
+        return ejs.RegexpQuery('_all',q.query);
+>>>>>>> origin/master
       default:
         return _.isUndefined(q.query) ? false : sjs.QueryStringQuery(q.query || '*:*');
       }
