@@ -1,12 +1,9 @@
 {
-  "title": "Basic Dashboard With Pointers",
+  "title": "Fusion Logs",
   "services": {
     "query": {
       "idQueue": [
-        1,
-        2,
-        3,
-        4
+        1
       ],
       "list": {
         "0": {
@@ -24,9 +21,13 @@
     },
     "filter": {
       "idQueue": [
+<<<<<<< HEAD
         0,
         1,
         2
+=======
+        1
+>>>>>>> origin/fusion
       ],
 <<<<<<< HEAD
       "list": {
@@ -120,7 +121,15 @@
           "loadingEditor": false,
           "status": "Stable",
           "mode": "markdown",
+<<<<<<< HEAD
+<<<<<<< HEAD
+          "content": "In the row below, we have put in a _time picker_ and a _search bar._ Banana is primarily designed for time series data, and we expect every dashboard to have a time picker. You will also almost always have a search bar for user searches. \n\nBelow that there is a hidden row that contains a _filtering_ module, which is used to configure global filter queries. You will almost certainly want to have one. Clicking on any facet in the terms module will filter results by that value. You can modify each filter once it is created; you can change the value and/or choose between \"must\", \"must not\" and \"either.\"\n\nClick on the right-facing triangle to the far left of the row to _Expand Row_. You can click on the upward-facing triangle on any row in order to _Hide Row._",
+=======
+          "content": "![kibana](img/kibana.png)  \n\n##### Did you just upgrade? Not expecting this screen?\nIf you were using the old default page you might not be expecting this screen. I understand, change can be awkward. Let me explain. \n\n##### Setting a global default dashboard\nKibana has always shipped with an interface for Logstash, still does! You can access it [here](index.html#dashboard/file/logstash.json). However, if you want to make it your default again, all you need to do is rename a file!\nIn your Kibana installation directory: \n\nRename *logstash.json* to *default.json* and refresh. Should be all set.\n\n##### But wait, there's more!\nIn fact, you can add any exported dashboard to that directory and access it as *http://YOUR-HOST -HERE/index.html#dashboard/file/YOUR-DASHBOARD.json*. Neat trick eh?",
+>>>>>>> origin/master
+=======
           "content": "You have a few choices:\n\n* [Blank Dashboard](index.html#/dashboard/file/blank.json) I don't have much data yet, please extract some basics for me\n* [Lucidworks Fusion Signals](index.html#/dashboard/file/lucidworks-signals.json) Explore the Lucidworks Fusion Signals collection\n* [Metrics Dashboard](index.html#/dashboard/file/lucidworks-metrics.json) Show me how my system is performing\n* [Search Analytics](index.html#/dashboard/file/lucidworks-searchanalytics.json) Use this dashboard to display search analytics info from your collection",
+>>>>>>> origin/fusion
           "style": {},
           "title": "Explore Dashboards"
         }
@@ -788,7 +797,68 @@
   "style": "light",
   "panel_hints": true,
   "loader": {
+<<<<<<< HEAD
+    "save_gist": true,
+=======
+  "style": "dark",
+  "failover": false,
+  "panel_hints": true,
+  "pulldowns": [
+    {
+      "type": "query",
+      "collapse": true,
+      "notice": false,
+      "query": "*",
+      "pinned": true,
+      "history": [],
+      "remember": 10
+    },
+    {
+      "type": "filtering",
+      "collapse": true,
+      "notice": false
+    }
+  ],
+  "nav": [
+    {
+      "type": "timepicker",
+      "collapse": false,
+      "notice": false,
+      "status": "Stable",
+      "time_options": [
+        "5m",
+        "15m",
+        "1h",
+        "6h",
+        "12h",
+        "24h",
+        "2d",
+        "7d",
+        "30d"
+      ],
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ],
+      "timefield": "@timestamp",
+      "now": true,
+      "filter_id": 0
+    }
+  ],
+  "loader": {
     "save_gist": false,
+>>>>>>> origin/master
+=======
+    "save_gist": false,
+>>>>>>> origin/fusion
     "save_elasticsearch": true,
     "save_local": true,
     "save_default": true,

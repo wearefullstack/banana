@@ -475,10 +475,14 @@ function (angular, app, $, _, kbn, moment, timeSeries) {
       });
 
       dashboard.refresh();
+<<<<<<< HEAD
 =======
         field:$scope.panel.time_field
       });
 >>>>>>> origin/master
+=======
+
+>>>>>>> origin/fusion
     };
 
     // I really don't like this function, too much dom manip. Break out into directive?

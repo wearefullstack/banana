@@ -32,11 +32,15 @@ function (angular, app, _, kbn, moment) {
   var module = angular.module('kibana.panels.table', []);
   app.useModule(module);
 <<<<<<< HEAD
+<<<<<<< HEAD
   module.controller('table', function($rootScope, $scope, fields, querySrv, dashboard, filterSrv, solrSrv) {
 =======
 
   module.controller('table', function($rootScope, $scope, $modal, $q, $compile, fields, querySrv, dashboard, filterSrv) {
 >>>>>>> origin/master
+=======
+  module.controller('table', function($rootScope, $scope, $timeout, timer, fields, querySrv, dashboard, filterSrv) {
+>>>>>>> origin/fusion
     $scope.panelMeta = {
       modals : [
         {
@@ -132,6 +136,24 @@ function (angular, app, _, kbn, moment) {
       $scope.get_data();
     };
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    // Create a percent function for the view
+    $scope.percent = kbn.to_percent;
+
+    $scope.termsModal = function(field,chart) {
+      $scope.modalField = field;
+      showModal(
+        '{"height":"300px","chart":"'+chart+'","field":"'+field+'"}','terms');
+    };
+
+    $scope.statsModal = function(field) {
+      $scope.modalField = field;
+      showModal(
+        '{"field":"'+field+'"}','statistics');
+    };
+
     var showModal = function(panel,type) {
 
       $scope.facetPanel = panel;
@@ -153,6 +175,34 @@ function (angular, app, _, kbn, moment) {
       });
     };
 
+>>>>>>> origin/master
+=======
+    $scope.percent = kbn.to_percent;
+
+    $scope.set_timer = function(refresh_interval) {
+      $scope.panel.refresh.interval = refresh_interval;
+      if (_.isNumber($scope.panel.refresh.interval)) {
+        timer.cancel($scope.refresh_timer);
+        $scope.realtime();
+      } else {
+        timer.cancel($scope.refresh_timer);
+      }
+    };
+
+    $scope.realtime = function() {
+      if ($scope.panel.refresh.enable) {
+        timer.cancel($scope.refresh_timer);
+
+        $scope.refresh_timer = timer.register($timeout(function() {
+          $scope.realtime();
+          $scope.get_data();
+        }, $scope.panel.refresh.interval*1000));
+      } else {
+        timer.cancel($scope.refresh_timer);
+      }
+    };
+
+>>>>>>> origin/fusion
     $scope.toggle_micropanel = function(field,groups) {
       var docs = _.map($scope.data,function(_d){return _d.kibana._source;});
       var topFieldValues = {};
@@ -172,7 +222,12 @@ function (angular, app, _, kbn, moment) {
         values : topFieldValues.counts,
         hasArrays : topFieldValues.hasArrays,
         related : kbn.get_related_fields(docs,field),
+<<<<<<< HEAD
         count: totalcount
+=======
+        limit: 10,
+        count: _.countBy(docs,function(doc){return _.contains(_.keys(doc),field);})['true']
+>>>>>>> origin/master
       };
     };
 
@@ -240,17 +295,19 @@ function (angular, app, _, kbn, moment) {
       } else {
         query = angular.toJson(value);
       }
+<<<<<<< HEAD
       // TODO: Need to take a look here, not sure if need change.
       filterSrv.set({type:'field',field:field,query:query,mandate:(negate ? 'mustNot':'must')});
 
+=======
+>>>>>>> origin/master
       $scope.panel.offset = 0;
-      dashboard.refresh();
+      filterSrv.set({type:'field',field:field,query:query,mandate:(negate ? 'mustNot':'must')});
     };
 
     $scope.fieldExists = function(field,mandate) {
       // TODO: Need to take a look here.
       filterSrv.set({type:'exists',field:field,mandate:mandate});
-      dashboard.refresh();
     };
 
     $scope.get_data = function(segment,query_id) {

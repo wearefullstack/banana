@@ -31,9 +31,17 @@ function (Settings) {
      * your banana web application.
      * @type {String}
      */
+<<<<<<< HEAD
     solr: "http://hdp24.fullstack.co.za:8983/solr/",
     solr_core: "svoc_authors",
     timefield: 'event_timestamp',
+=======
+
+    // Specify Solr server and core to store the data.
+    solr: "/api/apollo/solr/",
+    solr_core: "logs",
+    timefield: "timestamp_dt",
+>>>>>>> origin/fusion
 
     /**
      * The default Solr index to use for storing objects internal to Banana, such as 
