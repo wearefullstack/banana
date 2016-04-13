@@ -1158,6 +1158,9 @@
     <Content Include="sbsabanana\vendor\bootstrap\less\wells.less" />
     <Content Include="sbsabanana\js\nv.d3.min.js.map" />
     <Content Include="sbsabanana\css\nv.d3.min.css.map" />
+    <Content Include="sbsabanana\app\dashboards\consolidatedsvoc.json" />
+    <Content Include="sbsabanana\app\dashboards\socialinsights.json" />
+    <Content Include="sbsabanana\app\dashboards\sbsablank.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
