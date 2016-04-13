@@ -732,6 +732,8 @@
     <Content Include="sbsabanana\css\layouts\side-menu.css" />
     <Content Include="sbsabanana\css\main.css" />
     <Content Include="sbsabanana\css\normalize.min.css" />
+    <Content Include="sbsabanana\css\nv.d3.css" />
+    <Content Include="sbsabanana\css\nv.d3.min.css" />
     <Content Include="sbsabanana\css\pure-min.css" />
     <Content Include="sbsabanana\css\rotate.css" />
     <Content Include="sbsabanana\css\timepicker.css" />
@@ -760,6 +762,10 @@
     <Content Include="sbsabanana\img\topHeader_Bg.jpg" />
     <Content Include="sbsabanana\img\Twitter_Logo_Hd_Png_06.jpg" />
     <Content Include="sbsabanana\index.html" />
+    <Content Include="sbsabanana\js\dimple.v2.2.0.js" />
+    <Content Include="sbsabanana\js\dimple.v2.2.0.min.js" />
+    <Content Include="sbsabanana\js\nv.d3.js" />
+    <Content Include="sbsabanana\js\nv.d3.min.js" />
     <Content Include="sbsabanana\js\ui.js" />
     <Content Include="sbsabanana\release-notes.html" />
     <Content Include="sbsabanana\social-insights.html" />
@@ -1150,6 +1156,8 @@
     <Content Include="sbsabanana\vendor\bootstrap\less\variables.less" />
     <Content Include="sbsabanana\vendor\bootstrap\less\variables.light.less" />
     <Content Include="sbsabanana\vendor\bootstrap\less\wells.less" />
+    <Content Include="sbsabanana\js\nv.d3.min.js.map" />
+    <Content Include="sbsabanana\css\nv.d3.min.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
