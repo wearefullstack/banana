@@ -757,6 +757,7 @@
     <Content Include="sbsabanana\img\standard-logo.png" />
     <Content Include="sbsabanana\img\svoc.png" />
     <Content Include="sbsabanana\img\Teradata-Logo.gif" />
+    <Content Include="sbsabanana\img\topHeader_Bg.jpg" />
     <Content Include="sbsabanana\img\Twitter_Logo_Hd_Png_06.jpg" />
     <Content Include="sbsabanana\index.html" />
     <Content Include="sbsabanana\js\ui.js" />
