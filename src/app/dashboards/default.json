@@ -28,7 +28,7 @@
         1,
         2
       ],
-<<<<<<< HEAD
+
       "list": {
         "0": {
           "from": "NOW/HOUR-12HOUR",
@@ -46,10 +46,6 @@
       "ids": [
         0
       ]
-=======
-      "list": {},
-      "ids": []
->>>>>>> origin/master
     }
   },
   "rows": [
@@ -105,7 +101,7 @@
               "draggable": false,
               "query": "*:*",
               "pinned": true,
-              "history": [],
+              "history": [ ],
               "spyable": true,
               "remember": 10
             }
@@ -121,7 +117,7 @@
           "status": "Stable",
           "mode": "markdown",
           "content": "You have a few choices:\n\n* [Blank Dashboard](index.html#/dashboard/file/blank.json) I don't have much data yet, please extract some basics for me\n* [Lucidworks Fusion Signals](index.html#/dashboard/file/lucidworks-signals.json) Explore the Lucidworks Fusion Signals collection\n* [Metrics Dashboard](index.html#/dashboard/file/lucidworks-metrics.json) Show me how my system is performing\n* [Search Analytics](index.html#/dashboard/file/lucidworks-searchanalytics.json) Use this dashboard to display search analytics info from your collection",
-          "style": {},
+          "style": { },
           "title": "Explore Dashboards"
         }
       ]
@@ -159,7 +155,7 @@
           "field": "file_s",
           "stats_field": "",
           "decimal_points": 0,
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 5,
@@ -322,7 +318,7 @@
           "field": "method_s",
           "stats_field": "",
           "decimal_points": 0,
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 10,
@@ -426,7 +422,7 @@
           "field": "level_s",
           "stats_field": "",
           "decimal_points": 0,
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 10,
@@ -521,7 +517,7 @@
           "field": "host_s",
           "stats_field": "",
           "decimal_points": 0,
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 10,
@@ -616,7 +612,7 @@
           "field": "port_s",
           "stats_field": "",
           "decimal_points": 0,
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 10,
@@ -731,7 +727,7 @@
             "file_s",
             "message_t"
           ],
-          "highlight": [],
+          "highlight": [ ],
           "sortable": true,
           "header": true,
           "paging": true,
@@ -753,7 +749,7 @@
           "exportSize": 200,
           "exportAll": true,
           "displayLinkIcon": true,
-          "imageFields": [],
+          "imageFields": [ ],
           "imgFieldWidth": "auto",
           "imgFieldHeight": "85px",
           "important_fields": [
@@ -784,7 +780,7 @@
     "pattern": "[logstash-]YYYY.MM.DD",
     "default": "NO_TIME_FILTER_OR_INDEX_PATTERN_NOT_MATCHED"
   },
-<<<<<<< HEAD
+
   "style": "light",
   "panel_hints": true,
   "loader": {
@@ -802,15 +798,11 @@
     "hide": false,
     "dropdown_collections": false
   },
-<<<<<<< HEAD
+
   "solr": {
     "server": "/api/apollo/solr/",
     "core_name": "logs",
-    "core_list": [],
+    "core_list": [ ],
     "global_params": "&df=message_t"
   }
 }
-=======
-  "refresh": false
-}
->>>>>>> origin/master

@@ -54,7 +54,6 @@
       "panels": [
         {
           "error": false,
-<<<<<<< HEAD
           "span": 6,
           "editable": true,
           "type": "text",
@@ -62,25 +61,14 @@
           "status": "Stable",
           "mode": "markdown",
           "content": "You may be seeing a message that says Solr is not reachable or that the collection is not found. Click on _Configure Dashboard_ (cog icon) on the top right and set the Solr server and collection. By default, we have configured the dashboard to point to server _http://localhost:8983_ and collection _collection1_. You can also choose how many rows you want to have in the dashboard. \n\nTo configure what panels appear in a specific row, click on the _Configure Row_  (cog icon) at the far left of the row.\n\nEach panel can be configured by clicking on _Configure_ (cog icon) near the top right of the panel (just to the left of the panel type). The span of the panel determines its width; each row has width 12, and each panel can take up all or part of this span.\n\nAfter reading these _text panels_ (which are useful for presenting information about a dashboard), you can delete them by clicking on the \"x\" towards the top right of the panel.",
-          "style": {},
+          "style": { },
           "title": "Configure Dashboard"
         },
         {
           "error": false,
           "span": 6,
-=======
-          "span": 7,
->>>>>>> origin/master
-          "editable": true,
-          "group": [
-            "default"
-          ],
-          "type": "text",
-          "status": "Stable",
-          "mode": "markdown",
-<<<<<<< HEAD
           "content": "In the row below, we have put in a _time picker_ and a _search bar._ Banana is primarily designed for time series data, and we expect every dashboard to have a time picker. You will also almost always have a search bar for user searches. \n\nBelow that there is a hidden row that contains a _filtering_ module, which is used to configure global filter queries. You will almost certainly want to have one. Clicking on any facet in the terms module will filter results by that value. You can modify each filter once it is created; you can change the value and/or choose between \"must\", \"must not\" and \"either.\"\n\nClick on the right-facing triangle to the far left of the row to _Expand Row_. You can click on the upward-facing triangle on any row in order to _Hide Row._",
-          "style": {},
+          "style": { },
           "title": "Timestamps, Queries and Filters"
         }
       ]
@@ -128,20 +116,19 @@
         {
           "error": false,
           "span": 6,
-=======
+          =======
           "content": "If you have a field with a timestamp in it, you can set a time filter using the control in the navigation bar. You'll need to click the cog icon to configure the field that your timestamp is in.",
-          "style": {},
+          "style": { },
           "title": "Have a timestamp somewhere?"
         },
         {
           "error": false,
           "span": 5,
->>>>>>> origin/master
           "editable": true,
           "group": [
             "default"
           ],
-<<<<<<< HEAD
+
           "type": "query",
           "label": "Search",
           "history": [
@@ -152,14 +139,6 @@
           "query": "*",
           "title": "Search",
           "def_type": ""
-=======
-          "type": "text",
-          "status": "Stable",
-          "mode": "markdown",
-          "content": "See the *Filters* bar above? Click it to expand the filters panel. Right now there are none. click on one of the icons in the document types list to filter down to only that document type",
-          "style": {},
-          "title": "About filters"
->>>>>>> origin/master
         }
       ],
       "notice": false
@@ -182,7 +161,7 @@
           "status": "Stable",
           "mode": "markdown",
           "content": "Without knowing about your data, I cannot fully configure the panels I have provided below. However, I have provided you with some starting points, assuming that your time field is \"event_timestamp\" and that there is a field called \"message\" that you wish to facet on in order to view the top terms that appear in the \"message\" field and their frequency. If there is no data, these panels will be empty, and may give an error.\n\nThe _histogram_ panel allows you to plot either _counts_ or a specific field's (integer) _values_ across time. If you go to  _Configure_, the panel allows you to set the type of chart and what variable is plotted (if choosing the _values_ option). Moreover, when plotting values, you can specify a _group by_ field which will produce multiple charts. You can modify the time window for the entire page from within the histogram panel.\n\nThe _terms_ panel is great for visualizing facets--as pie charts, bar charts or tables. Clicking on a term will create a global filter query restricting the result set (across all panels within the page) to the field value that is selected. You could have many such panels depending on the number of fields you choose to facet on.\n\nThe *table* panel at the bottom provides you a detailed view of search results. It has attempted to list your fields to the left; select a few to view them in the table. You can sort by any field. Click on a particular row to expand the resulting document that was returned.",
-          "style": {},
+          "style": { },
           "title": "Facets, Histogram and Table"
         }
       ]
@@ -267,7 +246,7 @@
             "query": "q=*&wt=json&rows=0&fq=event_timestamp:[2014-04-02T05:07:22.000Z%20TO%202014-04-02T05:22:22.000Z]&facet=true&facet.field=message&facet.range=event_timestamp&facet.range.start=2014-04-02T05:07:22.000Z&facet.range.end=2014-04-02T05:22:22.000Z&facet.range.gap=%2B1DAY&facet.limit=100"
           },
           "field": "message",
-          "exclude": [],
+          "exclude": [ ],
           "missing": false,
           "other": false,
           "size": 100,
@@ -317,7 +296,7 @@
           "fields": [
             "message"
           ],
-          "highlight": [],
+          "highlight": [ ],
           "sortable": true,
           "header": true,
           "paging": true,
@@ -363,14 +342,14 @@
     "load_local": true,
     "hide": false
   },
-<<<<<<< HEAD
+  <<<<<<< HEAD
   "solr": {
     "server": "http://localhost:8983/solr/",
     "core_name": "collection1",
-    "core_list": [],
+    "core_list": [ ],
     "global_params": "&df=message"
   }
-=======
+  =======
   "pulldowns": [
     {
       "type": "query",
@@ -378,7 +357,7 @@
       "notice": false,
       "query": "*",
       "pinned": true,
-      "history": [],
+      "history": [ ],
       "remember": 10
     },
     {
@@ -420,5 +399,4 @@
     }
   ],
   "refresh": false
->>>>>>> origin/master
 }
