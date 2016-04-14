@@ -721,6 +721,7 @@
     <Content Include="sbsabanana\app\services\panelMove.js" />
     <Content Include="sbsabanana\app\services\querySrv.js" />
     <Content Include="sbsabanana\app\services\timer.js" />
+    <Content Include="sbsabanana\base-svoc.html" />
     <Content Include="sbsabanana\config.js" />
     <Content Include="sbsabanana\consolidated-svoc.html" />
     <Content Include="sbsabanana\css\animate.min.css" />
@@ -739,6 +740,7 @@
     <Content Include="sbsabanana\css\timepicker.css" />
     <Content Include="sbsabanana\dashboard.html" />
     <Content Include="sbsabanana\font\fontawesome-webfont.svg" />
+    <Content Include="sbsabanana\hive.html" />
     <Content Include="sbsabanana\img\facebook-logo.jpg" />
     <Content Include="sbsabanana\img\facebook-logo.png" />
     <Content Include="sbsabanana\img\glyphicons-halflings-white.png" />
@@ -762,11 +764,13 @@
     <Content Include="sbsabanana\img\topHeader_Bg.jpg" />
     <Content Include="sbsabanana\img\Twitter_Logo_Hd_Png_06.jpg" />
     <Content Include="sbsabanana\index.html" />
+    <Content Include="sbsabanana\journey.html" />
     <Content Include="sbsabanana\js\dimple.v2.2.0.js" />
     <Content Include="sbsabanana\js\dimple.v2.2.0.min.js" />
     <Content Include="sbsabanana\js\nv.d3.js" />
     <Content Include="sbsabanana\js\nv.d3.min.js" />
     <Content Include="sbsabanana\js\ui.js" />
+    <Content Include="sbsabanana\nifi.html" />
     <Content Include="sbsabanana\release-notes.html" />
     <Content Include="sbsabanana\social-insights.html" />
     <Content Include="sbsabanana\vendor\ajax-solr\core\AbstractFacetWidget.js" />
