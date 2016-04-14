@@ -741,6 +741,12 @@
     <Content Include="sbsabanana\dashboard.html" />
     <Content Include="sbsabanana\font\fontawesome-webfont.svg" />
     <Content Include="sbsabanana\hive.html" />
+    <Content Include="sbsabanana\images\image00.png" />
+    <Content Include="sbsabanana\images\image01.png" />
+    <Content Include="sbsabanana\images\image02.png" />
+    <Content Include="sbsabanana\images\image03.png" />
+    <Content Include="sbsabanana\images\image04.png" />
+    <Content Include="sbsabanana\images\image05.png" />
     <Content Include="sbsabanana\img\facebook-logo.jpg" />
     <Content Include="sbsabanana\img\facebook-logo.png" />
     <Content Include="sbsabanana\img\glyphicons-halflings-white.png" />
@@ -764,6 +770,7 @@
     <Content Include="sbsabanana\img\topHeader_Bg.jpg" />
     <Content Include="sbsabanana\img\Twitter_Logo_Hd_Png_06.jpg" />
     <Content Include="sbsabanana\index.html" />
+    <Content Include="sbsabanana\journey-content.html" />
     <Content Include="sbsabanana\journey.html" />
     <Content Include="sbsabanana\js\dimple.v2.2.0.js" />
     <Content Include="sbsabanana\js\dimple.v2.2.0.min.js" />
