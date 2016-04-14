@@ -771,6 +771,7 @@
     <Content Include="sbsabanana\js\nv.d3.min.js" />
     <Content Include="sbsabanana\js\ui.js" />
     <Content Include="sbsabanana\nifi.html" />
+    <Content Include="sbsabanana\qliksense.html" />
     <Content Include="sbsabanana\release-notes.html" />
     <Content Include="sbsabanana\social-insights.html" />
     <Content Include="sbsabanana\vendor\ajax-solr\core\AbstractFacetWidget.js" />
